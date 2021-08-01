@@ -1,0 +1,75 @@
+{% extends 'base.jinja2' %}
+
+{% block style %}
+  .truncate {
+  width: 250px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  }
+{% endblock %}
+
+{% block content %}
+  <header class="w3-container w3-green">
+    <h2><a href="{{ url_for('index') }}">{{ icon('bank') }} Archive index</a></h2>
+  </header>
+
+  <div class="w3-half">
+    <div class="w3-container w3-panel w3-pale-green">
+      <h3>Search</h3>
+
+      <form method="GET">
+	<p>
+	  <label>Text:</label>
+	  <input class="w3-input" type="text" name="q" value="{{ q }}" minlength=2/>
+	</p>
+	<p>
+	  <button class="w3-input w3-blue" type="Button" name="submit">{{ icon('search') }} Search</button>
+	</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="w3-half">
+    <div class="w3-container w3-panel w3-pale-green">
+      <h3>New site</h3>
+
+      <form method="POST">
+	<p>
+	  <label>Site URL:</label>
+	  <input class="w3-input" type="text" name="new_url" minlength=2/>
+	</p>
+	<p>
+	  <button class="w3-input w3-blue" type="Submit" name="Submit" value="Submit_add_url">{{ icon('plus') }} Add</button>
+	</p>
+      </form>
+    </div>
+  </div>
+
+  <div class="w3-container w3-panel w3-white">
+    <h3>
+      {% if q %}
+	Results for "{{ q }}":
+      {% else %}
+	Last 100 items added (total {{ items_count }}):
+      {% endif %}
+    </h3>
+    <p>
+      <table class="w3-table w3-bordered" style="width: 100%; white-space: nowrap; table-layout: fixed;">
+	<thead>
+	  <th style="width: 80%;">Title</th>
+	  <th style="width: 20%;">Added</th>
+	</thead>
+	<tbody>
+	  {% for item in items %}
+	    <tr>
+	      <td style="overflow: hidden; text-overflow: ellipsis"><a href="{{ item.url }}">{% if item.title %}{{ item.title }}{% else %}{{ item.url }}{% endif %}</a></td>
+	      <td style="overflow: hidden; text-overflow: ellipsis">{{ nice_time(item.added_epochtime) }}</td>
+	    </tr>
+	  {% endfor %}
+	</tbody>
+      </table>
+    </p>
+  </div>
+
+{% endblock %}
