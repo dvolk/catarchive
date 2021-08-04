@@ -32,4 +32,4 @@ It is convenient to add pages without switching to the catarchive page. To do th
 
 This be bound to a key in your window manager, for example for i3:
 
-   bindsym --release $mod+m exec "/home/dv/src/my/catarchive/env/bin/python /home/dv/src/my/catarchive/cli.py add-from-xclip"
+    bindsym --release $mod+m exec "/home/dv/src/my/catarchive/env/bin/python /home/dv/src/my/catarchive/cli.py add-from-xclip"
